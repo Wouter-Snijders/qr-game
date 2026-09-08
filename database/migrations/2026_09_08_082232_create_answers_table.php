@@ -13,7 +13,25 @@ return new class extends Migration
     {
         Schema::create('answers', function (Blueprint $table) {
             $table->id();
+                $table->foreignId('student_id')
+        ->constrained()
+        ->cascadeOnDelete();
+
+    $table->foreignId('question_id')
+        ->constrained()
+        ->cascadeOnDelete();
+
+    $table->text('answer')->nullable();
+
+    $table->integer('points')->default(0);
+
+    $table->text('feedback')->nullable();
+
+    $table->boolean('checked')->default(false);
+
             $table->timestamps();
+                $table->unique(['student_id', 'question_id']);
+
         });
     }
 
